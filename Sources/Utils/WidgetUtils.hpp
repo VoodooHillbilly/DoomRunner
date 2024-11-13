@@ -74,6 +74,8 @@ void deselectAllAndUnsetCurrent( QListView * view );
 /// Deselects currently selected items, selects new one and makes it the current item.
 /** Basically equivalent to left-clicking on an item. */
 void chooseItemByIndex( QListView * view, int index );
+/// TODO
+void selectSetCurrentAndScrollTo( QListView * view, int index );
 
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -100,6 +102,8 @@ void deselectAllAndUnsetCurrent( QTreeView * view );
 /// Deselects currently selected items, selects new one and makes it the current item.
 /** Basically equivalent to left-clicking on an item. */
 void chooseItemByIndex( QTreeView * view, const QModelIndex & index );
+/// TODO
+void selectSetCurrentAndScrollTo( QTreeView * view, const QModelIndex & index );
 
 
 //----------------------------------------------------------------------------------------------------------------------
