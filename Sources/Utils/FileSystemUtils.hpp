@@ -306,11 +306,11 @@ class PathRebaser {
 
 	QString rebasePathFromTo( const QString & path, const QDir & inputBaseDir, const QDir & outputBaseDir ) const
 	{
-		if (path.isEmpty())
-			return {};
+		if (path.isEmpty() || fs::isAbsolutePath( path ))
+			return path;  // nothing to do, keep the absolute paths as they are
 
-		QString absPath = fs::isAbsolutePath( path ) ? path : inputBaseDir.absoluteFilePath( path );
-		QString newPath = outputAbsolutePaths() ? absPath : outputBaseDir.relativeFilePath( absPath );
+		QString absPath = inputBaseDir.absoluteFilePath( path );
+		QString newPath = outputBaseDir.relativeFilePath( absPath );
 
 		return newPath;
 	}

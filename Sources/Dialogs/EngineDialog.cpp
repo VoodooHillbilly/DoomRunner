@@ -216,13 +216,10 @@ EngineInfo EngineDialog::autofillEngineInfo( const QString & executablePath, con
 
 	// automatically suggest the most common user-defined paths and options based on the derived engine info
 	suggestUserEngineInfo( engine );
+	// keep the suggested paths in the original form, some may be better stored as relative, some as absolute
 
 	// assign automatic info that depends on the user-defined info
 	engine.assignFamilyTraits( engine.family );
-
-	// convert the suggested paths to the right format
-	engine.configDir = pathConvertor.convertPath( engine.configDir );
-	engine.dataDir = pathConvertor.convertPath( engine.dataDir );
 
 	return engine;
 }
@@ -371,8 +368,8 @@ void EngineDialog::accept()
 		loadDerivedEngineInfo( engine, executableLineText );
 	}
 
-	engine.configDir = pathConvertor.convertPath( configDirLineText );
-	engine.dataDir = pathConvertor.convertPath( dataDirLineText );
+	engine.configDir = std::move( configDirLineText );
+	engine.dataDir = std::move( dataDirLineText );
 
 	int familyIdx = ui->familyCmbBox->currentIndex();
 	if (familyIdx < 0 || familyIdx >= int( EngineFamily::_EnumEnd ))

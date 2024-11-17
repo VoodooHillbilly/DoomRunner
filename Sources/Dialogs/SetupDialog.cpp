@@ -582,7 +582,7 @@ void SetupDialog::onAbsolutePathsToggled( bool checked )
 	for (Engine & engine : engineModel)
 	{
 		engine.executablePath = pathConvertor.convertPath( engine.executablePath );
-		engine.configDir = pathConvertor.convertPath( engine.configDir );
+		// don't convert the config/data dirs, some of them may be better stored as relative, some as absolute
 	}
 	engineModel.contentChanged( 0 );
 
