@@ -76,7 +76,6 @@ struct EngineFamilyTraits
 class EngineTraits {
 
 	// application info
-	QString _exePath;             ///< path of the file from which the application info was constructed
 	QString _exeBaseName;         ///< executable file name without file suffix
 	os::UncertainExeVersionInfo _exeVersionInfo;
 	QString _appNameNormalized;   ///< application name normalized for indexing engine property tables
@@ -94,7 +93,7 @@ class EngineTraits {
 	/// Initializes application info.
 	/** This may open and read the executable file if needed. */
 	void loadAppInfo( const QString & executablePath );
-	bool hasAppInfo() const                     { return !_exePath.isEmpty(); }
+	bool hasAppInfo() const                     { return !_exeBaseName.isNull(); }
 
 	/// Initializes family traits according to specified engine family.
 	void assignFamilyTraits( EngineFamily family );
@@ -102,7 +101,6 @@ class EngineTraits {
 
 	// application properties - requires application info to be loaded
 
-	const QString & appInfoSrcExePath() const   { assert( hasAppInfo() ); return _exePath; }
 	const QString & exeBaseName() const         { assert( hasAppInfo() ); return _exeBaseName; }
 
 	const QString & exeAppName() const          { assert( hasAppInfo() ); return _exeVersionInfo.appName; }

@@ -698,7 +698,7 @@ void MainWindow::setupPresetList()
 	ui->presetListView->toggleIntraWidgetDragAndDrop( true );
 	ui->presetListView->toggleInterWidgetDragAndDrop( false );
 	ui->presetListView->toggleExternalFileDragAndDrop( false );
-	connect( ui->presetListView, QOverload< int, int >::of( &EditableListView::itemsDropped ), this, &thisClass::onPresetsReordered );
+	connect( ui->presetListView, &EditableListView::itemsDropped, this, &thisClass::onPresetsReordered );
 
 	// set reaction when an item is selected
 	connect( ui->presetListView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &thisClass::onPresetToggled );
@@ -810,7 +810,7 @@ void MainWindow::setupModList()
 	ui->modListView->toggleIntraWidgetDragAndDrop( true );
 	ui->modListView->toggleInterWidgetDragAndDrop( true );
 	ui->modListView->toggleExternalFileDragAndDrop( true );
-	connect( ui->modListView, QOverload< int, int >::of( &EditableListView::itemsDropped ), this, &thisClass::onModsDropped );
+	connect( ui->modListView, &EditableListView::itemsDropped, this, &thisClass::onModsDropped );
 
 	// set reaction when an item is checked or unchecked
 	connect( &modModel, &QAbstractListModel::dataChanged, this, &thisClass::onModDataChanged );
@@ -2812,7 +2812,7 @@ void MainWindow::modToggleIcons()
 	scheduleSavingOptions();
 }
 
-void MainWindow::onModsDropped( int dropRow, int count )
+void MainWindow::onModsDropped( int dropRow, int count, DnDType )
 {
 	// update the preset
 	if (Preset * selectedPreset = getSelectedPreset())
@@ -4367,7 +4367,7 @@ os::ShellCommand MainWindow::generateLaunchCommand(
 int MainWindow::askForExtraPermissions( const EngineInfo & selectedEngine, const QStringVec & permissions )
 {
 	auto engineName = fs::getFileNameFromPath( selectedEngine.executablePath );
-	auto sandboxName = selectedEngine.sandboxEnvName();
+	auto sandboxName = selectedEngine.sandboxEnv.appName;
 
 	QMessageBox messageBox( QMessageBox::Question, "Extra permissions needed",
 		engineName%" requires extra permissions to be able to access files outside of its "%sandboxName%" environment. "

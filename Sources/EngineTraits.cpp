@@ -168,7 +168,6 @@ EngineTraits::EngineTraits()
 
 void EngineTraits::loadAppInfo( const QString & executablePath )
 {
-	_exePath = executablePath;
 	_exeBaseName = fs::getFileBasenameFromPath( executablePath );
 
 	// Sometimes opening an executable file takes incredibly long (even > 1 second) for unknown reason (antivirus maybe?).
